@@ -1,4 +1,18 @@
 #canvas{
     border:red solid;
     margin-left:505px;
+    margin-top: 150px;
 }
+body{
+    background: url('IMG/BGhome.png');
+    background-size: cover;
+}
+#inp{
+    position: absolute;
+    left: 500px;
+    
+}  
+div span{
+    color: red;
+    background-color: white;
+}  
