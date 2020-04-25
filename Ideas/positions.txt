@@ -41,3 +41,10 @@ Win positions:
 0 0 1
 0 1 0 
 1 0 0 
+
+
+You win!
+I win!
+Draw!
+Illegal move
+Game ended

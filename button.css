@@ -1,9 +1,24 @@
+body{
+  background: url('IMG/BGhome.png');
+  background-size: cover;
+}
 
+#playbo {
+  position: absolute;
+  left:470px;
+    top:400px;
+}
+
+#playbt {
+  position: absolute;
+    
+    left:730px;
+    top:400px;
+}
 
 a.fciA {
-    position: absolute;
-    top:500px;
-    left:600px;
+    
+    
     font-family:arial;
     font-size: 40px;
     line-height: 40px;
@@ -11,7 +26,7 @@ a.fciA {
     text-decoration: none;
     text-align:center;
     display:block;
-    width:150px;
+    width:202px;
     color: rgba(255, 0, 0, 0.884);
     
     -webkit-transition: color 0.2s;

@@ -10,6 +10,11 @@ let playerX = 'X';
 let playerO = 'O';
 //! True - X, False - O
 
+$('#canvas').css("border", "solid red");
+$('#canvas').css("margin-left", "505px");
+$('#canvas').css("margin-top", "230px");
+$('#inp').show();
+
 let res = [
   [0, 0, 0],
   [0, 0, 0],
@@ -22,17 +27,8 @@ X.src = "IMG/X.png"
 bg.src = "IMG/BG.png"
 
 
-X.onload = function(){
+bg.onload = function(){
   ctx.drawImage(bg, 0, 0);
-  //   ctx.drawImage(X, 0, 0);
-  //   ctx.drawImage(X, 0, 120);
-  //   ctx.drawImage(X, 0, 240);
-  //   ctx.drawImage(X, 120, 0);
-  //   ctx.drawImage(X, 240, 0);
-  //   ctx.drawImage(X, 120, 120);
-  //   ctx.drawImage(X, 240, 120);
-  //   ctx.drawImage(X, 120, 240);
-  //   ctx.drawImage(X, 240, 240);
 }
 
 
@@ -144,15 +140,16 @@ $("#canvas").click(function(e) {
     }
     if(isSolved(res) === 1){
       alert(`${playerX} win`);
-      location.href='home.html';
+      location.href='index.html';
     };
     if(isSolved(res) === 2){
       alert(`${playerO} win`)
-      location.href='home.html';
+      location.href='index.html';
     };
     
-    if(res[0][0] !== 0 && res[0][1] !== 0 && res[0][2] !== 0 && res[1][0] !== 0 && res[1][1] !== 0 && res[1][2] !== 0 && res[2][0] !== 0 && res[2][1] !== 0 && res[2][2] !== 0){
-      alert("draw!")
+    if(res[0][0] !== 0 && res[0][1] !== 0 && res[0][2] !== 0 && res[1][0] !== 0 && res[1][1] !== 0 && res[1][2] !== 0 && res[2][0] !== 0 && res[2][1] !== 0 && res[2][2] !== 0 && isSolved(res) !== 1 && isSolved(res) !== 2){
+      alert("draw!");
+      location.href = 'index.html'
     }
 
     player = !player;
@@ -160,8 +157,15 @@ $("#canvas").click(function(e) {
 
 
   function send(){
+  $('#inp').hide();
   playerX = document.getElementById("playerX").value;
   playerO = document.getElementById("playerO").value;
+  if(document.getElementById("playerX").value === ''){
+    playerX = 'X'
+  }
+  if(document.getElementById("playerO").value === ''){
+    playerO = 'O'
+  }
   }
 
 

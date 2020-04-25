@@ -1,8 +1,9 @@
-#canvas{
+/* #canvas{
     border:red solid;
     margin-left:505px;
-    margin-top: 150px;
-}
+    margin-top: 230px;
+} */
+
 body{
     background: url('IMG/BGhome.png');
     background-size: cover;
