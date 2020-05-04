@@ -1,3 +1,86 @@
+//! localstorge
+storge = function() {
+	// если аргумент один
+	if (arguments.length == 1) {
+		var arg1 = arguments[0];
+		// если первый аргумент строка
+		if (typeof arg1 == 'string') {
+			var retString = localStorage.getItem(arg1);
+			if (retString == null) {
+				return false
+			}
+			var last = retString.length - 1;
+			// если строка в сторче похожа на json обьект
+			if ((retString[0] == '{' && retString[last] == '}')
+					|| (retString[0] == '[' && retString[last] == ']')) {
+				// то распарсить и вернуть обьект
+				return JSON.parse(retString)
+			}// если нет
+			else {// то вернуть просто строку
+				return retString
+			}
+		}// если первый аргумент обьект
+		else if (typeof arg1 == 'object') {
+			for (prop in arg1) {// то засунуть значения и ключи в сторч
+				try {
+					localStorage.setItem(prop, arg1[prop]);
+					return true
+				} catch (e) {
+					if (e == QUOTA_EXCEEDED_ERR) {
+						alert('Локальное хранилище переполнено');
+						return false
+					}
+				}
+			}
+		}
+		// если аргумента два
+	} else if (arguments.length == 2) {
+		var arg1 = arguments[0];
+		var arg2 = arguments[1];
+		// если второй аргумент строка или номер
+		if (typeof arg2 == 'string' || typeof arg2 == 'number') {
+			try {
+				// то засунуть ключ и значение в сторч
+				localStorage.setItem(arg1, arg2)
+				return true
+			} catch (e) {
+				if (e == QUOTA_EXCEEDED_ERR) {
+					alert('Локальное хранилище переполнено');
+					return true
+				}
+			}
+
+		}// если второй аргумент null
+		else if (arg2 == null) {
+			// то удалить значение и ключ
+			localStorage.removeItem(arg1)
+			return true
+		}
+		// если второй аргумент обьект
+		else if (typeof arg2 == 'object') {
+			try {
+				// то преобразовать в json строку и засунуть в сторч
+				localStorage.setItem(arg1, JSON.stringify(arg2))
+				return true
+			} catch (e) {
+				if (e == QUOTA_EXCEEDED_ERR) {
+					alert('Локальное хранилище переполнено');
+					return true
+				}
+			}
+		}
+	}
+}
+// очистить сторч
+storge.clear = function() {
+	localStorage.clear()
+}
+
+
+
+
+
+
 let cvs = document.getElementById("canvas");
 let ctx = cvs.getContext("2d");
 
@@ -6,14 +89,23 @@ let X = new Image();
 let bg = new Image();
 let mark = new Audio();
 let player = true;
+//! True - X, False - O
 let playerX = 'X';
 let playerO = 'O';
-//! True - X, False - O
+
+
 
 $('#canvas').css("border", "solid red");
 $('#canvas').css("margin-left", "505px");
 $('#canvas').css("margin-top", "230px");
 $('#inp').show();
+if(storge('names') === false){
+playerX = 'X';
+playerO = 'O';
+}else{
+  if(playerX !== 'X') $("#playerX").val(storge('names').X);
+  if(playerO !== 'O') $("#playerO").val(storge('names').O);
+}
 
 let res = [
   [0, 0, 0],
@@ -166,6 +258,10 @@ $("#canvas").click(function(e) {
   if(document.getElementById("playerO").value === ''){
     playerO = 'O'
   }
+  storge('names', {
+    X: playerX,
+    O: playerO
+  })
   }
 
 
@@ -179,5 +275,8 @@ function isSolved(board) {
     return 0;
 }
  //! 1 - X, 2 - O
+
+
+
 
 
